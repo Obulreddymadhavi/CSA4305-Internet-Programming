@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Background Color by Time</title>
+</head>
+<body>
+
+<h2>Background changes according to system time</h2>
+
+<script>
+function changeColor() {
+    let hour = new Date().getHours();
+
+    if (hour >= 6 && hour < 12) {
+        document.body.style.backgroundColor = "lightyellow";   // Morning
+    } 
+    else if (hour >= 12 && hour < 17) {
+        document.body.style.backgroundColor = "lightblue";     // Afternoon
+    } 
+    else if (hour >= 17 && hour < 20) {
+        document.body.style.backgroundColor = "orange";        // Evening
+    } 
+    else {
+        document.body.style.backgroundColor = "black";         // Night
+        document.body.style.color = "white";
+    }
+}
+
+changeColor();
+</script>
+
+</body>
+</html>
