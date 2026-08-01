@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Form Validation</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="container">
+
+    <h2>Registration Form</h2>
+
+    <form id="myForm">
+
+        <label>Email</label>
+
+        <input
+        type="text"
+        id="email"
+        placeholder="Enter your email"
+        onkeyup="validateEmail()">
+
+        <span id="emailError"></span>
+
+        <label>Phone Number</label>
+
+        <input
+        type="text"
+        id="phone"
+        placeholder="Enter your phone number"
+        onkeyup="validatePhone()">
+
+        <span id="phoneError"></span>
+
+        <button
+        type="button"
+        onclick="validateForm()">
+        Submit
+        </button>
+
+    </form>
+
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
