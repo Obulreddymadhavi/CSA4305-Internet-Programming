@@ -1,0 +1,67 @@
+ALGORITHM PHPFormValidation
+
+BEGIN
+
+    RECEIVE form data using POST
+
+    SET errors = empty list
+
+    GET name     = POST["name"]
+    GET email    = POST["email"]
+    GET password = POST["password"]
+
+    // Step 1: Check empty fields
+    IF name is empty THEN
+        ADD "Name is required" TO errors
+    END IF
+
+    IF email is empty THEN
+        ADD "Email is required" TO errors
+    END IF
+
+    IF password is empty THEN
+        ADD "Password is required" TO errors
+    END IF
+
+    // Step 2: Validate name
+    IF name is not empty THEN
+        IF name contains invalid characters THEN
+            ADD "Invalid name format" TO errors
+        END IF
+    END IF
+
+    // Step 3: Validate email
+    IF email is not empty THEN
+        IF email is not a valid email format THEN
+            ADD "Invalid email address" TO errors
+        END IF
+    END IF
+
+    // Step 4: Validate password
+    IF password is not empty THEN
+        IF length(password) < 8 THEN
+            ADD "Password must contain at least 8 characters" TO errors
+        END IF
+    END IF
+
+    // Step 5: Check validation result
+    IF errors is NOT empty THEN
+
+        FOR EACH error IN errors DO
+            DISPLAY error
+        END FOR
+
+        DISPLAY "Form submission failed"
+
+    ELSE
+
+        // All validations passed
+        SANITIZE input data
+        PROCESS form data
+        SAVE data if required
+
+        DISPLAY "Form submitted successfully"
+
+    END IF
+
+END
