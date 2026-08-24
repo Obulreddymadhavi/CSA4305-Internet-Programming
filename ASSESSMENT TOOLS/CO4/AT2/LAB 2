@@ -1,0 +1,49 @@
+ALGORITHM MVCWorkflow
+
+BEGIN
+
+    // Step 1: User sends request
+    USER enters URL or submits a form
+    CLIENT sends HTTP REQUEST to WEB SERVER
+
+    // Step 2: Controller receives request
+    SERVER identifies the requested resource
+    CONTROLLER receives the request
+
+    // Step 3: Controller processes request
+    CONTROLLER reads request parameters
+    CONTROLLER validates the input
+
+    IF input is invalid THEN
+        CONTROLLER selects error VIEW
+        VIEW generates error response
+        SERVER sends response to CLIENT
+        STOP
+    END IF
+
+    // Step 4: Controller communicates with Model
+    CONTROLLER calls MODEL method
+
+    // Step 5: Model interacts with database
+    MODEL establishes database connection
+    MODEL executes required SQL query
+    DATABASE processes the query
+    DATABASE returns result to MODEL
+    MODEL processes the result
+    MODEL closes database connection
+
+    // Step 6: Controller receives data
+    CONTROLLER receives data from MODEL
+
+    // Step 7: Controller selects View
+    CONTROLLER sends data to VIEW
+
+    // Step 8: View generates response
+    VIEW combines data with HTML template
+    VIEW generates dynamic HTML page
+
+    // Step 9: Response sent to user
+    SERVER sends HTTP RESPONSE to CLIENT
+    CLIENT displays the generated page
+
+END
