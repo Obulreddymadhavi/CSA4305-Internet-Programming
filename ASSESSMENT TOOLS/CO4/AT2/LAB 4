@@ -1,0 +1,57 @@
+ALGORITHM RetrieveDataFromDatabase
+
+BEGIN
+
+    // Step 1: Load database driver
+    LOAD database driver
+
+    // Step 2: Establish connection
+    SET databaseURL
+    SET username
+    SET password
+
+    connection = CONNECT(databaseURL, username, password)
+
+    IF connection fails THEN
+        DISPLAY "Database connection failed"
+        STOP
+    END IF
+
+    // Step 3: Create SQL query
+    query = "SELECT id, name, email FROM users"
+
+    // Step 4: Execute query
+    statement = CREATE_STATEMENT(connection)
+    resultSet = EXECUTE_QUERY(statement, query)
+
+    // Step 5: Process retrieved records
+    IF resultSet is empty THEN
+        DISPLAY "No records found"
+    ELSE
+
+        DISPLAY "User Details"
+        DISPLAY "-------------------------"
+
+        WHILE resultSet has next record DO
+
+            id    = resultSet.get("id")
+            name  = resultSet.get("name")
+            email = resultSet.get("email")
+
+            DISPLAY "ID    : " + id
+            DISPLAY "Name  : " + name
+            DISPLAY "Email : " + email
+            DISPLAY "-------------------------"
+
+        END WHILE
+
+    END IF
+
+    // Step 6: Close resources
+    CLOSE resultSet
+    CLOSE statement
+    CLOSE connection
+
+    DISPLAY "Database operation completed"
+
+END
