@@ -1,0 +1,46 @@
+ALGORITHM ParseXMLDocument
+
+BEGIN
+    LOAD XML file "users.xml"
+
+    IF XML file cannot be loaded THEN
+        DISPLAY "Error: Unable to load XML file"
+        STOP
+    END IF
+
+    GET root node of XML document
+
+    DISPLAY "User Details"
+
+    FOR EACH userNode IN rootNode.children DO
+
+        IF userNode.name = "user" THEN
+
+            GET id       FROM userNode.attribute("id")
+            GET name     FROM userNode.child("name")
+            GET email    FROM userNode.child("email")
+            GET phone    FROM userNode.child("phone")
+
+            DISPLAY "-------------------------"
+            DISPLAY "User ID : " + id
+            DISPLAY "Name    : " + name
+            DISPLAY "Email   : " + email
+            DISPLAY "Phone   : " + phone
+
+            GET addressNode FROM userNode.child("address")
+
+            IF addressNode EXISTS THEN
+                GET city    FROM addressNode.child("city")
+                GET country FROM addressNode.child("country")
+
+                DISPLAY "City    : " + city
+                DISPLAY "Country : " + country
+            END IF
+
+        END IF
+
+    END FOR
+
+    DISPLAY "XML parsing completed"
+
+END
