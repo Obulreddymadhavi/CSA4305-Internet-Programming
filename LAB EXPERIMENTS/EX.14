@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ReNewMarket - Second Hand Marketplace</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background: #f4f7f4;
+    color: #333;
+}
+
+header {
+    background: #176b45;
+    color: white;
+    padding: 18px 7%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.logo {
+    font-size: 27px;
+    font-weight: bold;
+}
+
+.logo span {
+    color: #a5e6c2;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    margin: 0 10px;
+    cursor: pointer;
+}
+
+nav a:hover {
+    color: #a5e6c2;
+}
+
+.btn {
+    background: #176b45;
+    color: white;
+    border: none;
+    padding: 11px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.btn:hover {
+    opacity: .85;
+}
+
+.hero {
+    background: linear-gradient(120deg,#176b45,#319b68);
+    color: white;
+    padding: 70px 8%;
+    min-height: 400px;
+    display: flex;
+    align-items: center;
+}
+
+.hero h1 {
+    font-size: 46px;
+    margin-bottom: 15px;
+}
+
+.hero p {
+    font-size: 19px;
+    max-width: 650px;
+    line-height: 1.6;
+    margin-bottom: 25px;
+}
+
+.section {
+    padding: 45px 7%;
+}
+
+.section h2 {
+    text-align: center;
+    color: #176b45;
+    margin-bottom: 30px;
+}
+
+.categories {
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(180px,1fr));
+    gap: 20px;
+}
+
+.category {
+    background: white;
+    padding: 25px;
+    text-align: center;
+    border-radius: 10px;
+    box-shadow: 0 3px 10px #0001;
+    cursor: pointer;
+}
+
+.category:hover {
+    transform: translateY(-5px);
+}
+
+.icon {
+    font-size: 50px;
+}
+
+.search {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 30px;
+}
+
+.search input,
+.search select {
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.search input {
+    width: 350px;
+}
+
+.products {
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
+    gap: 25px;
+}
+
+.product {
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 3px 10px #0001;
+}
+
+.product img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+}
+
+.product-info {
+    padding: 18px;
+}
+
+.product-info h3 {
+    color: #176b45;
+    margin-bottom: 8px;
+}
+
+.price {
+    font-size: 20px;
+    font-weight: bold;
+    color: #176b45;
+    margin: 12px 0;
+}
+
+.product-info button {
+    width: 100%;
+}
+
+.form {
+    background: white;
+    max-width: 650px;
+    margin: auto;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 3px 10px #0001;
+}
+
+.form input,
+.form textarea,
+.form select {
+    width: 100%;
+    padding: 12px;
+    margin: 8px 0 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.form button {
+    width: 100%;
+}
+
+.admin {
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
+    gap: 20px;
+}
+
+.admin-card {
+    background: white;
+    padding: 25px;
+    border-left: 5px solid #176b45;
+    box-shadow: 0 3px 10px #0001;
+}
+
+.admin-card h3 {
+    color: #176b45;
+    margin-bottom: 10px;
+}
+
+footer {
+    background: #0d432c;
+    color: white;
+    text-align: center;
+    padding: 30px;
+    margin-top: 40px;
+}
+
+@media(max-width:700px) {
+    header {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .hero h1 {
+        font-size: 34px;
+    }
+
+    .search {
+        flex-direction: column;
+    }
+
+    .search input {
+        width: 100%;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+
+<div class="logo">
+ReNew<span>Market</span>
+</div>
+
+<nav>
+<a href="#home">Home</a>
+<a href="#categories">Categories</a>
+<a href="#products">Products</a>
+<a href="#sell">Sell</a>
+<a href="#admin">Admin</a>
+<a onclick="login()">Login</a>
+</nav>
+
+</header>
+
+
+<section class="hero" id="home">
+
+<div>
+
+<h1>Give Products a Second Life</h1>
+
+<p>
+Buy and sell quality pre-loved products.
+Discover electronics, furniture, clothing
+and collectibles at affordable prices.
+</p>
+
+<button class="btn"
+onclick="document.getElementById('products').scrollIntoView()">
+Start Shopping
+</button>
+
+</div>
+
+</section>
+
+
+<section class="section" id="categories">
+
+<h2>Browse Categories</h2>
+
+<div class="categories">
+
+<div class="category" onclick="filterCategory('Electronics')">
+<div class="icon">📱</div>
+<h3>Electronics</h3>
+<p>Phones, laptops and gadgets</p>
+</div>
+
+<div class="category" onclick="filterCategory('Furniture')">
+<div class="icon">🛋️</div>
+<h3>Furniture</h3>
+<p>Tables, chairs and more</p>
+</div>
+
+<div class="category" onclick="filterCategory('Clothing')">
+<div class="icon">👕</div>
+<h3>Clothing</h3>
+<p>Pre-loved fashion</p>
+</div>
+
+<div class="category" onclick="filterCategory('Collectibles')">
+<div class="icon">🏆</div>
+<h3>Collectibles</h3>
+<p>Unique items and collections</p>
+</div>
+
+</div>
+</section>
+
+
+<section class="section" id="products">
+
+<h2>Available Products</h2>
+
+<div class="search">
+
+<input type="text"
+id="search"
+placeholder="Search products..."
+onkeyup="searchProducts()">
+
+<select id="category"
+onchange="filterProducts()">
+
+<option value="All">All Categories</option>
+<option value="Electronics">Electronics</option>
+<option value="Furniture">Furniture</option>
+<option value="Clothing">Clothing</option>
+<option value="Collectibles">Collectibles</option>
+
+</select>
+
+</div>
+
+<div class="products" id="productList"></div>
+
+</section>
+
+
+<section class="section" id="sell">
+
+<h2>Create New Listing</h2>
+
+<div class="form">
+
+<input id="sellerName"
+placeholder="Seller Name">
+
+<input id="itemName"
+placeholder="Item Name">
+
+<select id="itemCategory">
+
+<option>Electronics</option>
+<option>Furniture</option>
+<option>Clothing</option>
+<option>Collectibles</option>
+
+</select>
+
+<input id="itemPrice"
+type="number"
+placeholder="Price">
+
+<textarea id="itemDescription"
+placeholder="Item Description"></textarea>
+
+<button class="btn" onclick="createListing()">
+Create Listing
+</button>
+
+</div>
+
+</section>
+
+
+<section class="section">
+
+<h2>Transaction Management</h2>
+
+<div class="form">
+
+<input id="transactionId"
+placeholder="Enter Transaction ID">
+
+<button class="btn"
+onclick="trackTransaction()">
+Track Transaction
+</button>
+
+<p id="transactionStatus"
+style="margin-top:20px;font-weight:bold;">
+</p>
+
+</div>
+
+</section>
+
+
+<section class="section" id="admin">
+
+<h2>Administrator Panel</h2>
+
+<div class="admin">
+
+<div class="admin-card">
+
+<h3>User Management</h3>
+
+<p>
+Edit or delete registered users.
+</p>
+
+<br>
+
+<button class="btn"
+onclick="manageUsers()">
+Manage Users
+</button>
+
+</div>
+
+
+<div class="admin-card">
+
+<h3>Category Management</h3>
+
+<p>
+Add or delete product categories.
+</p>
+
+<br>
+
+<button class="btn"
+onclick="manageCategories()">
+Manage Categories
+</button>
+
+</div>
+
+
+<div class="admin-card">
+
+<h3>Commodity Management</h3>
+
+<p>
+Edit or delete marketplace commodities.
+</p>
+
+<br>
+
+<button class="btn"
+onclick="manageProducts()">
+Manage Products
+</button>
+
+</div>
+
+
+<div class="admin-card">
+
+<h3>Order Management</h3>
+
+<p>
+Change shipping and receiving status.
+</p>
+
+<br>
+
+<button class="btn"
+onclick="manageOrders()">
+Manage Orders
+</button>
+
+</div>
+
+</div>
+
+</section>
+
+
+<footer>
+
+<h3>ReNewMarket</h3>
+
+<p>
+Buy • Sell • Reuse • Sustain
+</p>
+
+<br>
+
+<p>© 2026 ReNewMarket</p>
+
+</footer>
+
+
+<script>
+
+let products = [
+
+{
+id:1,
+name:"Used Smartphone",
+category:"Electronics",
+price:12000,
+image:"https://images.unsplash.com/photo-1511707171634-5f897ff02aa9"
+},
+
+{
+id:2,
+name:"Second Hand Laptop",
+category:"Electronics",
+price:28000,
+image:"https://images.unsplash.com/photo-1496181133206-80ce9b88a853"
+},
+
+{
+id:3,
+name:"Wooden Chair",
+category:"Furniture",
+price:2500,
+image:"https://images.unsplash.com/photo-1503602642458-232111445657"
+},
+
+{
+id:4,
+name:"Denim Jacket",
+category:"Clothing",
+price:900,
+image:"https://images.unsplash.com/photo-1551028719-00167b16eac5"
+},
+
+{
+id:5,
+name:"Vintage Watch",
+category:"Collectibles",
+price:4500,
+image:"https://images.unsplash.com/photo-1524805444758-089113d48a6d"
+},
+
+{
+id:6,
+name:"Study Table",
+category:"Furniture",
+price:3500,
+image:"https://images.unsplash.com/photo-1494438639946-1ebd1d20bf85"
+}
+
+];
+
+
+function displayProducts(list=products) {
+
+let container =
+document.getElementById("productList");
+
+container.innerHTML="";
+
+list.forEach(product => {
+
+container.innerHTML += `
+
+<div class="product">
+
+<img src="${product.image}?auto=format&fit=crop&w=500">
+
+<div class="product-info">
+
+<h3>${product.name}</h3>
+
+<p>${product.category}</p>
+
+<div class="price">
+₹${product.price}
+</div>
+
+<p>
+Available for negotiation
+</p>
+
+<br>
+
+<button class="btn"
+onclick="contactSeller('${product.name}')">
+Contact Seller
+</button>
+
+</div>
+
+</div>
+
+`;
+
+});
+
+}
+
+
+function searchProducts() {
+
+let value =
+document.getElementById("search")
+.value.toLowerCase();
+
+let result =
+products.filter(p =>
+p.name.toLowerCase().includes(value)
+);
+
+displayProducts(result);
+
+}
+
+
+function filterProducts() {
+
+let category =
+document.getElementById("category").value;
+
+if(category==="All") {
+
+displayProducts(products);
+
+} else {
+
+displayProducts(
+products.filter(p =>
+p.category===category
+)
+);
+
+}
+
+}
+
+
+function filterCategory(category) {
+
+document.getElementById("category").value=category;
+
+filterProducts();
+
+document.getElementById("products")
+.scrollIntoView();
+
+}
+
+
+function contactSeller(name) {
+
+alert(
+"Seller Contact\n\n" +
+"Product: "+name+
+"\n\nYou can negotiate the price with the seller."
+);
+
+}
+
+
+function createListing() {
+
+let name =
+document.getElementById("itemName").value;
+
+let category =
+document.getElementById("itemCategory").value;
+
+let price =
+document.getElementById("itemPrice").value;
+
+if(name==="" || price==="") {
+
+alert("Please enter item details.");
+
+return;
+
+}
+
+products.push({
+
+id:products.length+1,
+name:name,
+category:category,
+price:price,
+image:"https://images.unsplash.com/photo-1495474472287-4d71bcdd2085"
+
+});
+
+displayProducts();
+
+alert("Product listing created successfully!");
+
+}
+
+
+function trackTransaction() {
+
+let id =
+document.getElementById("transactionId").value;
+
+if(id==="") {
+
+alert("Enter Transaction ID.");
+
+return;
+
+}
+
+document.getElementById("transactionStatus")
+.innerText =
+"Transaction "+id+
+" is currently Shipped 🚚";
+
+}
+
+
+function login() {
+
+let email =
+prompt("Enter your email:");
+
+if(email) {
+
+alert("Login successful!");
+
+}
+
+}
+
+
+function manageUsers() {
+
+alert(
+"User Management\n\n"+
+"✓ Edit User\n"+
+"✓ Delete User\n"+
+"✓ View User Details"
+);
+
+}
+
+
+function manageCategories() {
+
+alert(
+"Category Management\n\n"+
+"✓ Add Category\n"+
+"✓ Delete Category"
+);
+
+}
+
+
+function manageProducts() {
+
+alert(
+"Commodity Management\n\n"+
+"✓ Edit Commodity\n"+
+"✓ Delete Commodity"
+);
+
+}
+
+
+function manageOrders() {
+
+alert(
+"Order Management\n\n"+
+"✓ Change to Shipped\n"+
+"✓ Change to Received\n"+
+"✓ Delete Order"
+);
+
+}
+
+
+displayProducts();
+
+</script>
+
+</body>
+</html>
