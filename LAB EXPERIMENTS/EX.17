@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>VoteOnline</title>
+
+<style>
+*{box-sizing:border-box;font-family:Arial}
+body{margin:0;background:#f5f7fa}
+header{background:#263238;color:white;padding:18px 7%;
+display:flex;justify-content:space-between;align-items:center}
+.logo{font-size:27px;font-weight:bold}
+nav a{color:white;text-decoration:none;margin:10px;cursor:pointer}
+.hero{background:#37474f;color:white;padding:70px 8%}
+.hero h1{font-size:45px}
+.section{padding:45px 7%}
+h2{text-align:center;color:#263238}
+.form{background:white;padding:30px;max-width:600px;margin:25px auto;
+border-radius:10px;box-shadow:0 3px 12px #0002}
+input{width:100%;padding:12px;margin:10px 0}
+button{background:#263238;color:white;border:0;padding:12px 20px;
+border-radius:5px;cursor:pointer}
+.candidates{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:20px}
+.card{background:white;padding:25px;text-align:center;
+border-radius:10px;box-shadow:0 3px 10px #0002}
+.card input{width:auto}
+footer{background:#263238;color:white;text-align:center;padding:25px}
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+<div class="logo">VoteOnline</div>
+
+<nav>
+<a href="#home">Home</a>
+<a href="#vote">Vote</a>
+<a href="#admin">Admin</a>
+<a onclick="login()">Login</a>
+</nav>
+
+</header>
+
+<section class="hero" id="home">
+
+<h1>Secure Online Voting</h1>
+
+<p>
+Vote securely and conveniently from anywhere.
+</p>
+
+<button onclick="document.getElementById('vote').scrollIntoView()">
+Vote Now
+</button>
+
+</section>
+
+<section class="section">
+
+<h2>Voter Login</h2>
+
+<div class="form">
+
+<input id="voterId" placeholder="Enter Voter ID">
+
+<button onclick="sendOTP()">
+Get OTP
+</button>
+
+<input id="otp" placeholder="Enter OTP">
+
+<button onclick="verifyOTP()">
+Verify OTP
+</button>
+
+<p id="loginResult"></p>
+
+</div>
+
+</section>
+
+<section class="section" id="vote">
+
+<h2>Select Candidate</h2>
+
+<div class="candidates">
+
+<div class="card">
+<h3>Candidate A</h3>
+<p>Development Party</p>
+<input type="radio" name="candidate" value="Candidate A">
+Select
+</div>
+
+<div class="card">
+<h3>Candidate B</h3>
+<p>People's Party</p>
+<input type="radio" name="candidate" value="Candidate B">
+Select
+</div>
+
+<div class="card">
+<h3>Candidate C</h3>
+<p>Progress Party</p>
+<input type="radio" name="candidate" value="Candidate C">
+Select
+</div>
+
+</div>
+
+<br>
+
+<center>
+<button onclick="submitVote()">
+Submit Vote
+</button>
+</center>
+
+</section>
+
+<section class="section">
+
+<h2>Election Information</h2>
+
+<div class="form">
+
+<p><b>Election:</b> General Election 2026</p>
+<p><b>Status:</b> Voting Open</p>
+<p><b>Voting Deadline:</b> 6:00 PM</p>
+
+</div>
+
+</section>
+
+<section class="section" id="admin">
+
+<h2>Admin Dashboard</h2>
+
+<div class="candidates">
+
+<div class="card">
+<h3>Create Candidate</h3>
+<button onclick="adminAction('Candidate created')">Create</button>
+</div>
+
+<div class="card">
+<h3>Voter List</h3>
+<button onclick="adminAction('Voter list opened')">View</button>
+</div>
+
+<div class="card">
+<h3>Import Voter List</h3>
+<button onclick="adminAction('Voter list imported')">Import</button>
+</div>
+
+<div class="card">
+<h3>Election Results</h3>
+<button onclick="results()">View Results</button>
+</div>
+
+</div>
+
+</section>
+
+<footer>
+VoteOnline © 2026
+</footer>
+
+<script>
+
+function login(){
+alert("Voter login page opened.");
+}
+
+function sendOTP(){
+let id=document.getElementById("voterId").value;
+
+if(id===""){
+alert("Enter Voter ID");
+return;
+}
+
+alert("OTP sent to registered mobile number.");
+}
+
+function verifyOTP(){
+
+let otp=document.getElementById("otp").value;
+
+if(otp===""){
+alert("Enter OTP");
+return;
+}
+
+document.getElementById("loginResult").innerHTML=
+"OTP verified successfully. You can now vote.";
+
+}
+
+function submitVote(){
+
+let candidate=document.querySelector(
+'input[name="candidate"]:checked'
+);
+
+if(!candidate){
+alert("Please select a candidate.");
+return;
+}
+
+if(confirm("Are you sure you want to submit your vote?")){
+alert(
+"Vote submitted successfully!\n"+
+"Selected: "+candidate.value+
+"\nThank you for voting."
+);
+}
+
+}
+
+function adminAction(message){
+alert(message);
+}
+
+function results(){
+alert(
+"Election Results\n\n"+
+"Candidate A: 45%\n"+
+"Candidate B: 35%\n"+
+"Candidate C: 20%"
+);
+}
+
+</script>
+
+</body>
+</html>
