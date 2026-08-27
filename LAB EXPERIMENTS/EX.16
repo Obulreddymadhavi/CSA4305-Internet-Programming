@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>ComplainEase</title>
+
+<style>
+*{box-sizing:border-box;font-family:Arial}
+body{margin:0;background:#f4f7fb;color:#333}
+header{background:#164e63;color:white;padding:18px 7%;display:flex;
+justify-content:space-between;align-items:center}
+.logo{font-size:26px;font-weight:bold}
+nav a{color:white;text-decoration:none;margin:10px;cursor:pointer}
+.hero{background:#0e7490;color:white;padding:70px 8%}
+.hero h1{font-size:45px}
+.section{padding:45px 7%}
+h2{text-align:center;color:#164e63;margin-bottom:25px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px}
+.card,.form{background:white;padding:25px;border-radius:10px;
+box-shadow:0 3px 10px #0002}
+.form{max-width:600px;margin:auto}
+input,textarea,select{width:100%;padding:12px;margin:8px 0 15px;
+border:1px solid #ccc;border-radius:5px}
+button{background:#0e7490;color:white;border:0;padding:12px 20px;
+border-radius:5px;cursor:pointer}
+button:hover{opacity:.85}
+.status{padding:15px;background:#e0f2fe;margin-top:15px;border-radius:5px}
+footer{background:#164e63;color:white;text-align:center;padding:25px}
+</style>
+</head>
+
+<body>
+
+<header>
+<div class="logo">ComplainEase</div>
+<nav>
+<a href="#home">Home</a>
+<a href="#complaint">Complaint</a>
+<a href="#status">Status</a>
+<a href="#officer">Officer</a>
+<a href="#admin">Admin</a>
+<a onclick="login()">Login</a>
+</nav>
+</header>
+
+<section class="hero" id="home">
+<h1>Register Your Complaint Easily</h1>
+<p>Submit, track and manage complaints through one simple platform.</p>
+<button onclick="document.getElementById('complaint').scrollIntoView()">
+Post Complaint
+</button>
+</section>
+
+<section class="section" id="complaint">
+<h2>Post Complaint</h2>
+
+<div class="form">
+
+<input id="name" placeholder="Your Name">
+
+<select id="category">
+<option>Road Problem</option>
+<option>Water Problem</option>
+<option>Electricity Problem</option>
+<option>Public Service</option>
+<option>Other</option>
+</select>
+
+<textarea id="description"
+placeholder="Describe your complaint"></textarea>
+
+<input type="file">
+
+<input id="location"
+placeholder="Complaint Location">
+
+<button onclick="postComplaint()">
+Submit Complaint
+</button>
+
+<p id="complaintResult"></p>
+
+</div>
+</section>
+
+<section class="section" id="status">
+<h2>View Complaint Status</h2>
+
+<div class="form">
+
+<input id="complaintId"
+placeholder="Enter Complaint ID">
+
+<button onclick="checkStatus()">
+Check Status
+</button>
+
+<div class="status" id="statusResult"></div>
+
+</div>
+</section>
+
+<section class="section">
+<h2>Google Map Location</h2>
+
+<div class="form">
+<input id="mapLocation" placeholder="Enter complaint location">
+
+<button onclick="openMap()">
+Mark Location on Google Map
+</button>
+</div>
+</section>
+
+<section class="section">
+<h2>Feedback</h2>
+
+<div class="form">
+
+<textarea id="feedback"
+placeholder="Enter your feedback"></textarea>
+
+<button onclick="sendFeedback()">
+Submit Feedback
+</button>
+
+</div>
+</section>
+
+<section class="section" id="officer">
+<h2>Officer Dashboard</h2>
+
+<div class="cards">
+
+<div class="card">
+<h3>View Complaints</h3>
+<p>View complaints assigned to the officer.</p>
+<button onclick="viewComplaints()">View</button>
+</div>
+
+<div class="card">
+<h3>Update Status</h3>
+<p>Update complaint resolution status.</p>
+<button onclick="updateStatus()">Update</button>
+</div>
+
+<div class="card">
+<h3>Proof of Work</h3>
+<p>Upload proof of completed work.</p>
+<button onclick="uploadProof()">Upload</button>
+</div>
+
+</div>
+</section>
+
+<section class="section" id="admin">
+<h2>Admin Dashboard</h2>
+
+<div class="cards">
+
+<div class="card">
+<h3>Officer Account</h3>
+<p>Generate ID and password for officers.</p>
+<button onclick="generateOfficer()">
+Generate
+</button>
+</div>
+
+<div class="card">
+<h3>Manage Accounts</h3>
+<p>Create, delete and view accounts.</p>
+<button onclick="manageAccounts()">
+Manage
+</button>
+</div>
+
+<div class="card">
+<h3>Change Password</h3>
+<button onclick="changePassword()">
+Change
+</button>
+</div>
+
+<div class="card">
+<h3>Admin Contact</h3>
+<p>Email: admin@complainease.com</p>
+<p>Phone: 1800-123-456</p>
+</div>
+
+</div>
+</section>
+
+<footer>
+ComplainEase © 2026
+</footer>
+
+<script>
+
+function postComplaint(){
+let name=document.getElementById("name").value;
+let desc=document.getElementById("description").value;
+
+if(name===""||desc===""){
+alert("Please fill all required details");
+return;
+}
+
+let id="CMP"+Math.floor(Math.random()*9000+1000);
+
+document.getElementById("complaintResult").innerHTML=
+"Complaint submitted successfully.<br>Complaint ID: <b>"+id+"</b>";
+
+}
+
+function checkStatus(){
+
+let id=document.getElementById("complaintId").value;
+
+if(id===""){
+alert("Enter Complaint ID");
+return;
+}
+
+document.getElementById("statusResult").innerHTML=
+"<b>"+id+"</b><br>Status: Under Investigation";
+
+}
+
+function openMap(){
+
+let location=document.getElementById("mapLocation").value;
+
+if(location===""){
+alert("Enter location");
+return;
+}
+
+window.open(
+"https://www.google.com/maps/search/?api=1&query="+
+encodeURIComponent(location)
+);
+
+}
+
+function sendFeedback(){
+alert("Thank you! Your feedback has been submitted.");
+}
+
+function login(){
+let email=prompt("Enter your email");
+if(email) alert("Login successful!");
+}
+
+function viewComplaints(){
+alert("Assigned complaints displayed successfully.");
+}
+
+function updateStatus(){
+alert("Complaint status updated to Resolved.");
+}
+
+function uploadProof(){
+alert("Proof of work uploaded successfully.");
+}
+
+function generateOfficer(){
+alert("Officer ID and password generated successfully.");
+}
+
+function manageAccounts(){
+alert("Account management opened.");
+}
+
+function changePassword(){
+alert("Password changed successfully.");
+}
+
+</script>
+
+</body>
+</html>
