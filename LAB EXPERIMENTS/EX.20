@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>RentRide</title>
+
+<style>
+*{box-sizing:border-box;font-family:Arial}
+body{margin:0;background:#f4f6f9;color:#333}
+header{background:#172554;color:white;padding:18px 7%;
+display:flex;justify-content:space-between;align-items:center}
+.logo{font-size:28px;font-weight:bold}
+nav a{color:white;text-decoration:none;margin:10px;cursor:pointer}
+.hero{background:linear-gradient(120deg,#172554,#2563eb);
+color:white;padding:70px 8%}
+.hero h1{font-size:47px}
+.section{padding:45px 7%}
+h2{text-align:center;color:#172554;margin-bottom:30px}
+.search{background:white;padding:25px;max-width:900px;margin:auto;
+border-radius:10px;box-shadow:0 3px 10px #0002}
+.search input,.search select{padding:12px;margin:7px;border:1px solid #ccc}
+.vehicles{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+gap:25px}
+.vehicle{background:white;border-radius:10px;overflow:hidden;
+box-shadow:0 3px 10px #0002}
+.vehicle img{width:100%;height:210px;object-fit:cover}
+.info{padding:20px}
+.price{font-size:20px;color:#2563eb;font-weight:bold;margin:10px 0}
+button{background:#2563eb;color:white;border:0;padding:12px 20px;
+border-radius:5px;cursor:pointer}
+.form{max-width:650px;background:white;margin:auto;padding:30px;
+border-radius:10px;box-shadow:0 3px 10px #0002}
+.form input,.form select{width:100%;padding:12px;margin:8px 0 15px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px}
+.card{background:white;padding:25px;box-shadow:0 3px 10px #0002;border-radius:10px}
+footer{background:#0f172a;color:white;text-align:center;padding:30px}
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+<div class="logo">RentRide 🚗</div>
+
+<nav>
+<a href="#home">Home</a>
+<a href="#search">Search</a>
+<a href="#booking">Booking</a>
+<a href="#history">History</a>
+<a href="#admin">Admin</a>
+<a onclick="login()">Login</a>
+</nav>
+
+</header>
+
+<section class="hero" id="home">
+
+<h1>Rent Your Perfect Ride</h1>
+
+<p>
+Cars, SUVs and trucks available for convenient rental.
+</p>
+
+<button onclick="document.getElementById('search').scrollIntoView()">
+Search Vehicles
+</button>
+
+</section>
+
+<section class="section" id="search">
+
+<h2>Search Vehicle</h2>
+
+<div class="search">
+
+<input id="searchText"
+placeholder="Search vehicle..."
+onkeyup="searchVehicles()">
+
+<select id="type" onchange="filterVehicles()">
+<option value="All">All Types</option>
+<option value="Car">Car</option>
+<option value="SUV">SUV</option>
+<option value="Truck">Truck</option>
+</select>
+
+<select id="location">
+<option>Chennai</option>
+<option>Bangalore</option>
+<option>Hyderabad</option>
+</select>
+
+<input type="date" id="date">
+
+</div>
+
+</section>
+
+<section class="section">
+
+<h2>Available Vehicles</h2>
+
+<div class="vehicles" id="vehicleList"></div>
+
+</section>
+
+<section class="section" id="booking">
+
+<h2>Make Booking</h2>
+
+<div class="form">
+
+<input id="customer"
+placeholder="Customer Name">
+
+<input id="customerNo"
+placeholder="Customer Number">
+
+<input id="address"
+placeholder="Address">
+
+<select id="vehicleType">
+<option>Car</option>
+<option>SUV</option>
+<option>Truck</option>
+</select>
+
+<input type="date">
+
+<input type="time">
+
+<button onclick="makeBooking()">
+Confirm Booking
+</button>
+
+<p id="bookingResult"></p>
+
+</div>
+
+</section>
+
+<section class="section" id="history">
+
+<h2>Booking Management</h2>
+
+<div class="cards">
+
+<div class="card">
+<h3>Current Booking</h3>
+<p>Booking #RR1001</p>
+<p>Status: Approved</p>
+</div>
+
+<div class="card">
+<h3>Past Appointments</h3>
+<p>View previous rental history.</p>
+<button onclick="pastBookings()">View</button>
+</div>
+
+<div class="card">
+<h3>Reviews</h3>
+<p>Share your rental experience.</p>
+<button onclick="review()">Give Review</button>
+</div>
+
+</div>
+
+</section>
+
+<section class="section" id="admin">
+
+<h2>Admin Dashboard</h2>
+
+<div class="cards">
+
+<div class="card">
+<h3>Add Vehicle</h3>
+<button onclick="adminAction('Vehicle added successfully')">
+Add Vehicle
+</button>
+</div>
+
+<div class="card">
+<h3>Manage Vehicle Details</h3>
+<p>Type, price and availability.</p>
+<button onclick="adminAction('Vehicle details updated')">
+Manage
+</button>
+</div>
+
+<div class="card">
+<h3>Manage Booking</h3>
+<p>Approve user bookings.</p>
+<button onclick="approveBooking()">
+Approve
+</button>
+</div>
+
+<div class="card">
+<h3>My Profile</h3>
+<button onclick="adminAction('Admin profile opened')">
+Profile
+</button>
+</div>
+
+</div>
+
+</section>
+
+<footer>
+RentRide © 2026 | Easy Vehicle Rental
+</footer>
+
+<script>
+
+let vehicles=[
+
+{
+name:"Toyota Sedan",
+type:"Car",
+price:1800,
+image:"https://images.unsplash.com/photo-1549924231-f129b911e442"
+},
+
+{
+name:"Toyota SUV",
+type:"SUV",
+price:3000,
+image:"https://images.unsplash.com/photo-1519641471654-76ce0107ad1b"
+},
+
+{
+name:"Delivery Truck",
+type:"Truck",
+price:4000,
+image:"https://images.unsplash.com/photo-1586191582056-d5a6f7d4b8e4"
+},
+
+{
+name:"Luxury Car",
+type:"Car",
+price:3500,
+image:"https://images.unsplash.com/photo-1503376780353-7e6692767b70"
+}
+
+];
+
+function displayVehicles(list=vehicles){
+
+let box=document.getElementById("vehicleList");
+
+box.innerHTML="";
+
+list.forEach((v,i)=>{
+
+box.innerHTML+=`
+
+<div class="vehicle">
+
+<img src="${v.image}?auto=format&fit=crop&w=500">
+
+<div class="info">
+
+<h3>${v.name}</h3>
+
+<p>Type: ${v.type}</p>
+
+<div class="price">
+₹${v.price} / day
+</div>
+
+<button onclick="selectVehicle(${i})">
+Select Vehicle
+</button>
+
+</div>
+
+</div>
+
+`;
+
+});
+
+}
+
+function searchVehicles(){
+
+let text=document.getElementById("searchText")
+.value.toLowerCase();
+
+displayVehicles(
+vehicles.filter(v=>
+v.name.toLowerCase().includes(text)
+)
+);
+
+}
+
+function filterVehicles(){
+
+let type=document.getElementById("type").value;
+
+if(type==="All"){
+displayVehicles();
+}else{
+displayVehicles(
+vehicles.filter(v=>v.type===type)
+);
+}
+
+}
+
+function selectVehicle(index){
+
+let v=vehicles[index];
+
+document.getElementById("vehicleType").value=v.type;
+
+document.getElementById("booking")
+.scrollIntoView();
+
+alert(
+v.name+
+" selected for booking."
+);
+
+}
+
+function makeBooking(){
+
+let name=document.getElementById("customer").value;
+let number=document.getElementById("customerNo").value;
+let address=document.getElementById("address").value;
+
+if(name===""||number===""||address===""){
+
+alert("Please enter all booking details.");
+
+return;
+
+}
+
+document.getElementById("bookingResult").innerHTML=
+"<b>Booking submitted successfully!</b><br>"+
+"Booking Status: Pending Admin Approval";
+
+}
+
+function pastBookings(){
+alert(
+"Past Booking History\n\n"+
+"RR1001 - Toyota Sedan - Completed\n"+
+"RR1002 - Toyota SUV - Completed"
+);
+}
+
+function review(){
+
+let review=prompt("Enter your review:");
+
+if(review){
+alert("Thank you for your review!");
+}
+
+}
+
+function approveBooking(){
+alert("User booking approved successfully.");
+}
+
+function adminAction(message){
+alert(message);
+}
+
+function login(){
+alert("RentRide login opened.");
+}
+
+displayVehicles();
+
+</script>
+
+</body>
+</html>
