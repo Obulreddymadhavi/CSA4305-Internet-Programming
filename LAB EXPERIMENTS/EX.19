@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>VetCure</title>
+
+<style>
+*{box-sizing:border-box;font-family:Arial}
+body{margin:0;background:#f5f8f6}
+header{background:#166534;color:white;padding:18px 7%;
+display:flex;justify-content:space-between;align-items:center}
+.logo{font-size:27px;font-weight:bold}
+nav a{color:white;text-decoration:none;margin:10px;cursor:pointer}
+.hero{background:#15803d;color:white;padding:70px 8%}
+.hero h1{font-size:45px}
+.section{padding:45px 7%}
+h2{text-align:center;color:#166534;margin-bottom:25px}
+.form{max-width:650px;margin:auto;background:white;padding:30px;
+border-radius:10px;box-shadow:0 3px 10px #0002}
+input,textarea,select{width:100%;padding:12px;margin:8px 0 15px}
+button{background:#15803d;color:white;border:0;padding:12px 20px;
+border-radius:5px;cursor:pointer}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px}
+.card{background:white;padding:25px;border-radius:10px;
+box-shadow:0 3px 10px #0002}
+.card h3{color:#166534}
+footer{background:#14532d;color:white;text-align:center;padding:30px}
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+<div class="logo">VetCure 🐄</div>
+
+<nav>
+<a href="#home">Home</a>
+<a href="#complaint">Consult</a>
+<a href="#doctors">Doctors</a>
+<a href="#news">News</a>
+<a onclick="login()">Login</a>
+</nav>
+
+</header>
+
+<section class="hero" id="home">
+
+<h1>Better Healthcare for Animals</h1>
+
+<p>
+Connect farmers with veterinary doctors and receive
+professional guidance for animal health.
+</p>
+
+<button onclick="document.getElementById('complaint').scrollIntoView()">
+Consult Doctor
+</button>
+
+</section>
+
+<section class="section">
+
+<h2>Farmer Registration</h2>
+
+<div class="form">
+
+<input id="farmerName" placeholder="Farmer Name">
+
+<input id="phone" placeholder="Mobile Number">
+
+<input id="email" placeholder="Email">
+
+<input id="password" type="password" placeholder="Password">
+
+<button onclick="register()">
+Register
+</button>
+
+</div>
+
+</section>
+
+<section class="section" id="complaint">
+
+<h2>Post Animal Health Complaint</h2>
+
+<div class="form">
+
+<input id="animal"
+placeholder="Animal Type">
+
+<textarea id="symptoms"
+placeholder="Enter signs and symptoms"></textarea>
+
+<label>Upload Image / Video / Audio</label>
+
+<input type="file">
+
+<select>
+<option>Government CVH</option>
+<option>Private Clinic</option>
+</select>
+
+<button onclick="postComplaint()">
+Send Request to Doctor
+</button>
+
+</div>
+
+</section>
+
+<section class="section" id="doctors">
+
+<h2>Available Doctors</h2>
+
+<div class="cards">
+
+<div class="card">
+
+<h3>Dr. Kumar</h3>
+
+<p>Veterinary Specialist</p>
+
+<p>Consultation: ₹500</p>
+
+<button onclick="payDoctor('Dr. Kumar')">
+Consult
+</button>
+
+</div>
+
+<div class="card">
+
+<h3>Dr. Priya</h3>
+
+<p>Animal Health Specialist</p>
+
+<p>Government CVH</p>
+
+<button onclick="payDoctor('Dr. Priya')">
+Consult
+</button>
+
+</div>
+
+</div>
+
+</section>
+
+<section class="section" id="news">
+
+<h2>Veterinary News</h2>
+
+<div class="cards">
+
+<div class="card">
+<h3>Animal Vaccination</h3>
+<p>Regular vaccination helps prevent common diseases.</p>
+</div>
+
+<div class="card">
+<h3>Animal Nutrition</h3>
+<p>Proper nutrition improves animal health and productivity.</p>
+</div>
+
+<div class="card">
+<h3>Disease Prevention</h3>
+<p>Early diagnosis can reduce disease spread.</p>
+</div>
+
+</div>
+
+</section>
+
+<section class="section">
+
+<h2>Doctor Dashboard</h2>
+
+<div class="cards">
+
+<div class="card">
+<h3>View Complaints</h3>
+<button onclick="doctorAction('Complaints displayed')">
+View
+</button>
+</div>
+
+<div class="card">
+<h3>Post Solution</h3>
+<button onclick="doctorAction('Solution posted')">
+Post Solution
+</button>
+</div>
+
+<div class="card">
+<h3>Manage Cure</h3>
+<button onclick="doctorAction('Cure information updated')">
+Manage
+</button>
+</div>
+
+<div class="card">
+<h3>Payment Details</h3>
+<button onclick="doctorAction('Payment details displayed')">
+View
+</button>
+</div>
+
+</div>
+
+</section>
+
+<section class="section">
+
+<h2>Payment</h2>
+
+<div class="form">
+
+<select id="payment">
+<option>Bank Transfer</option>
+<option>EasyPaisa</option>
+</select>
+
+<input placeholder="Amount">
+
+<button onclick="makePayment()">
+Make Payment
+</button>
+
+</div>
+
+</section>
+
+<footer>
+VetCure © 2026 | Animal Healthcare Platform
+</footer>
+
+<script>
+
+function register(){
+alert("Farmer registered successfully.");
+}
+
+function login(){
+alert("Login page opened.");
+}
+
+function postComplaint(){
+
+let animal=document.getElementById("animal").value;
+let symptoms=document.getElementById("symptoms").value;
+
+if(animal===""||symptoms===""){
+alert("Please provide animal details and symptoms.");
+return;
+}
+
+alert(
+"Request sent successfully!\n"+
+"Doctor will review the symptoms and respond."
+);
+
+}
+
+function payDoctor(name){
+
+if(confirm("Continue consultation with "+name+"?")){
+alert(
+"Payment page opened for "+name+
+"\nSelect Bank Transfer or EasyPaisa."
+);
+}
+
+}
+
+function makePayment(){
+alert("Payment processed successfully.");
+}
+
+function doctorAction(message){
+alert(message);
+}
+
+</script>
+
+</body>
+</html>
