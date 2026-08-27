@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>AgriMart</title>
+
+<style>
+*{box-sizing:border-box;font-family:Arial}
+body{margin:0;background:#f3f8f1;color:#333}
+header{background:#287233;color:white;padding:18px 7%;
+display:flex;justify-content:space-between;align-items:center}
+.logo{font-size:28px;font-weight:bold}
+nav a{color:white;text-decoration:none;margin:10px;cursor:pointer}
+.hero{background:#3d9147;color:white;padding:65px 8%}
+.hero h1{font-size:45px}
+.section{padding:45px 7%}
+h2{text-align:center;color:#287233;margin-bottom:25px}
+.search{text-align:center;margin-bottom:30px}
+.search input,.search select{padding:12px;margin:5px}
+.products{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:25px}
+.product{background:white;border-radius:10px;overflow:hidden;
+box-shadow:0 3px 10px #0002}
+.product img{width:100%;height:210px;object-fit:cover}
+.info{padding:18px}
+.price{font-size:20px;font-weight:bold;color:#287233;margin:10px 0}
+button{background:#287233;color:white;border:0;padding:11px 18px;
+border-radius:5px;cursor:pointer}
+.form{background:white;max-width:600px;margin:auto;padding:30px;
+border-radius:10px;box-shadow:0 3px 10px #0002}
+input,textarea,select{width:100%;padding:12px;margin:8px 0 15px}
+footer{background:#194d22;color:white;text-align:center;padding:30px}
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+<div class="logo">AgriMart 🌱</div>
+
+<nav>
+<a href="#home">Home</a>
+<a href="#products">Products</a>
+<a href="#orders">Orders</a>
+<a href="#farmer">Farmer</a>
+<a onclick="login()">Login</a>
+</nav>
+
+</header>
+
+<section class="hero" id="home">
+
+<h1>Everything Farmers Need</h1>
+
+<p>
+Seeds, fertilizers, pesticides, equipment and tools
+at your fingertips.
+</p>
+
+<button onclick="document.getElementById('products').scrollIntoView()">
+Shop Now
+</button>
+
+</section>
+
+<section class="section" id="products">
+
+<h2>Products</h2>
+
+<div class="search">
+
+<input id="search"
+placeholder="Search product..."
+onkeyup="searchProduct()">
+
+<select id="category"
+onchange="filterProduct()">
+
+<option value="All">All</option>
+<option value="Seeds">Seeds</option>
+<option value="Fertilizers">Fertilizers</option>
+<option value="Pesticides">Pesticides</option>
+<option value="Equipment">Equipment</option>
+<option value="Tools">Tools</option>
+
+</select>
+
+</div>
+
+<div class="products" id="productList"></div>
+
+</section>
+
+<section class="section">
+
+<h2>My Wallet</h2>
+
+<div class="form">
+
+<h3>Wallet Balance:
+₹<span id="balance">5000</span>
+</h3>
+
+<input id="money" type="number"
+placeholder="Enter amount">
+
+<button onclick="addMoney()">
+Add Money
+</button>
+
+</div>
+
+</section>
+
+<section class="section" id="orders">
+
+<h2>My Orders</h2>
+
+<div class="form">
+
+<input id="orderId"
+placeholder="Enter Order ID">
+
+<button onclick="orderStatus()">
+Check Order Status
+</button>
+
+<p id="orderResult"></p>
+
+</div>
+
+</section>
+
+<section class="section" id="farmer">
+
+<h2>Farmer Dashboard</h2>
+
+<div class="products">
+
+<div class="product">
+<div class="info">
+<h3>Add Product</h3>
+<p>Farmers can add agricultural products.</p>
+<button onclick="farmerAction('Product added')">
+Add Product
+</button>
+</div>
+</div>
+
+<div class="product">
+<div class="info">
+<h3>My Sales</h3>
+<p>View completed product sales.</p>
+<button onclick="farmerAction('Sales displayed')">
+View Sales
+</button>
+</div>
+</div>
+
+<div class="product">
+<div class="info">
+<h3>Shipping Status</h3>
+<p>Update customer shipping status.</p>
+<button onclick="farmerAction('Shipping status updated')">
+Update
+</button>
+</div>
+</div>
+
+<div class="product">
+<div class="info">
+<h3>Upload Images</h3>
+<input type="file">
+<button onclick="farmerAction('Image uploaded')">
+Upload
+</button>
+</div>
+</div>
+
+</div>
+
+</section>
+
+<footer>
+AgriMart © 2026 | Farmers First
+</footer>
+
+<script>
+
+let products=[
+
+{
+name:"Premium Rice Seeds",
+category:"Seeds",
+price:850,
+image:"https://images.unsplash.com/photo-1536304993881-ff6e9eefa2a6"
+},
+
+{
+name:"Organic Fertilizer",
+category:"Fertilizers",
+price:1200,
+image:"https://images.unsplash.com/photo-1589923188900-85dae523342b"
+},
+
+{
+name:"Crop Protection",
+category:"Pesticides",
+price:950,
+image:"https://images.unsplash.com/photo-1492496913980-501348b61469"
+},
+
+{
+name:"Power Sprayer",
+category:"Equipment",
+price:4500,
+image:"https://images.unsplash.com/photo-1592982537447-7440770cbfc9"
+},
+
+{
+name:"Farming Tools",
+category:"Tools",
+price:1800,
+image:"https://images.unsplash.com/photo-1416879595882-3373a0480b5b"
+}
+
+];
+
+let balance=5000;
+
+function displayProducts(list=products){
+
+let box=document.getElementById("productList");
+
+box.innerHTML="";
+
+list.forEach((p,i)=>{
+
+box.innerHTML+=`
+
+<div class="product">
+
+<img src="${p.image}?auto=format&fit=crop&w=500">
+
+<div class="info">
+
+<h3>${p.name}</h3>
+
+<p>${p.category}</p>
+
+<div class="price">₹${p.price}</div>
+
+<button onclick="buy(${i})">
+Add to Cart
+</button>
+
+</div>
+
+</div>
+
+`;
+
+});
+
+}
+
+function searchProduct(){
+
+let text=document.getElementById("search")
+.value.toLowerCase();
+
+displayProducts(
+products.filter(p=>p.name.toLowerCase().includes(text))
+);
+
+}
+
+function filterProduct(){
+
+let cat=document.getElementById("category").value;
+
+if(cat==="All"){
+displayProducts();
+}else{
+displayProducts(products.filter(p=>p.category===cat));
+}
+
+}
+
+function buy(index){
+
+let p=products[index];
+
+if(p.price>balance){
+alert("Insufficient wallet balance.");
+return;
+}
+
+balance-=p.price;
+
+document.getElementById("balance").innerText=balance;
+
+alert(
+p.name+
+" ordered successfully!"
+);
+
+}
+
+function addMoney(){
+
+let amount=Number(document.getElementById("money").value);
+
+if(amount<=0){
+alert("Enter valid amount");
+return;
+}
+
+balance+=amount;
+
+document.getElementById("balance").innerText=balance;
+
+alert("Money added successfully.");
+
+}
+
+function orderStatus(){
+
+let id=document.getElementById("orderId").value;
+
+if(id===""){
+alert("Enter Order ID");
+return;
+}
+
+document.getElementById("orderResult").innerHTML=
+"Order "+id+" : <b>Shipped 🚚</b>";
+
+}
+
+function farmerAction(message){
+alert(message);
+}
+
+function login(){
+alert("AgriMart login opened.");
+}
+
+displayProducts();
+
+</script>
+
+</body>
+</html>
