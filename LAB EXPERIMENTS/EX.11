@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>InsureEasy - Insurance Management</title>
+
+<style>
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background: #f4f7fb;
+    color: #333;
+}
+
+/* HEADER */
+
+header {
+    background: #0b3d91;
+    color: white;
+    padding: 18px 7%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.logo {
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.logo span {
+    color: #4fc3f7;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    margin: 0 12px;
+    cursor: pointer;
+}
+
+nav a:hover {
+    color: #4fc3f7;
+}
+
+/* HERO */
+
+.hero {
+    min-height: 430px;
+    background: linear-gradient(120deg, #0b3d91, #1976d2);
+    color: white;
+    display: flex;
+    align-items: center;
+    padding: 60px 8%;
+}
+
+.hero-content {
+    max-width: 650px;
+}
+
+.hero h1 {
+    font-size: 48px;
+    margin-bottom: 20px;
+}
+
+.hero p {
+    font-size: 19px;
+    line-height: 1.6;
+    margin-bottom: 25px;
+}
+
+.btn {
+    padding: 13px 25px;
+    border: none;
+    background: #4fc3f7;
+    color: #073b70;
+    font-weight: bold;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.btn:hover {
+    opacity: 0.9;
+}
+
+/* SECTION */
+
+.section {
+    padding: 50px 7%;
+}
+
+.section h2 {
+    text-align: center;
+    color: #0b3d91;
+    margin-bottom: 30px;
+    font-size: 30px;
+}
+
+/* INSURANCE CARDS */
+
+.insurance-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 25px;
+}
+
+.insurance-card {
+    background: white;
+    padding: 30px;
+    text-align: center;
+    border-radius: 10px;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.1);
+}
+
+.insurance-card .icon {
+    font-size: 50px;
+}
+
+.insurance-card h3 {
+    color: #0b3d91;
+    margin: 15px 0;
+}
+
+.insurance-card p {
+    line-height: 1.5;
+    margin-bottom: 15px;
+}
+
+/* DASHBOARD */
+
+.dashboard {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.dashboard-card {
+    background: white;
+    padding: 25px;
+    border-left: 5px solid #1976d2;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.dashboard-card h3 {
+    color: #0b3d91;
+}
+
+.dashboard-card p {
+    margin-top: 10px;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+/* POLICY TABLE */
+
+.table-container {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    background: white;
+    border-collapse: collapse;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+th {
+    background: #0b3d91;
+    color: white;
+}
+
+th, td {
+    padding: 15px;
+    border: 1px solid #ddd;
+    text-align: center;
+}
+
+/* LOGIN MODAL */
+
+.modal {
+    display: none;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.6);
+    z-index: 2000;
+}
+
+.modal-content {
+    background: white;
+    width: 380px;
+    max-width: 90%;
+    margin: 100px auto;
+    padding: 30px;
+    border-radius: 10px;
+}
+
+.modal-content h2 {
+    text-align: center;
+    color: #0b3d91;
+    margin-bottom: 20px;
+}
+
+.modal-content input,
+.modal-content select {
+    width: 100%;
+    padding: 12px;
+    margin: 8px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.modal-content button {
+    width: 100%;
+    margin-top: 12px;
+}
+
+.close {
+    float: right;
+    font-size: 25px;
+    cursor: pointer;
+}
+
+/* FORMS */
+
+.form-container {
+    max-width: 600px;
+    background: white;
+    margin: auto;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.1);
+}
+
+.form-container input,
+.form-container select,
+.form-container textarea {
+    width: 100%;
+    padding: 12px;
+    margin: 8px 0 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.form-container button {
+    width: 100%;
+}
+
+/* ALERT */
+
+.alert-box {
+    background: #fff3cd;
+    padding: 20px;
+    border-left: 5px solid #ffc107;
+    margin-top: 20px;
+    border-radius: 5px;
+}
+
+/* FOOTER */
+
+footer {
+    background: #092c66;
+    color: white;
+    text-align: center;
+    padding: 30px;
+    margin-top: 40px;
+}
+
+/* MOBILE */
+
+@media(max-width: 700px) {
+
+    header {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .hero h1 {
+        font-size: 35px;
+    }
+
+    nav {
+        text-align: center;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+
+<!-- HEADER -->
+
+<header>
+
+    <div class="logo">
+        Insure<span>Easy</span>
+    </div>
+
+    <nav>
+        <a href="#home">Home</a>
+        <a href="#insurance">Insurance</a>
+        <a href="#dashboard">Dashboard</a>
+        <a onclick="openLogin()">Login</a>
+    </nav>
+
+</header>
+
+
+<!-- HOME -->
+
+<section class="hero" id="home">
+
+    <div class="hero-content">
+
+        <h1>Insurance Made Easy</h1>
+
+        <p>
+            Compare, purchase and manage your insurance policies
+            easily with InsureEasy.
+        </p>
+
+        <button class="btn"
+                onclick="document.getElementById('insurance').scrollIntoView()">
+            Explore Policies
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- INSURANCE TYPES -->
+
+<section class="section" id="insurance">
+
+    <h2>Insurance Policies</h2>
+
+    <div class="insurance-container">
+
+        <div class="insurance-card">
+
+            <div class="icon">🏥</div>
+
+            <h3>Health Insurance</h3>
+
+            <p>
+                Protect yourself and your family
+                against medical expenses.
+            </p>
+
+            <button class="btn"
+                    onclick="viewPolicy('Health Insurance')">
+                View Policy
+            </button>
+
+        </div>
+
+
+        <div class="insurance-card">
+
+            <div class="icon">🚗</div>
+
+            <h3>Auto Insurance</h3>
+
+            <p>
+                Get financial protection for your
+                vehicle and accidents.
+            </p>
+
+            <button class="btn"
+                    onclick="viewPolicy('Auto Insurance')">
+                View Policy
+            </button>
+
+        </div>
+
+
+        <div class="insurance-card">
+
+            <div class="icon">🏠</div>
+
+            <h3>Home Insurance</h3>
+
+            <p>
+                Protect your home and valuable
+                property from unexpected events.
+            </p>
+
+            <button class="btn"
+                    onclick="viewPolicy('Home Insurance')">
+                View Policy
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- DASHBOARD -->
+
+<section class="section" id="dashboard">
+
+    <h2>User Dashboard</h2>
+
+    <div class="dashboard">
+
+        <div class="dashboard-card">
+            <h3>Active Policies</h3>
+            <p>3</p>
+        </div>
+
+        <div class="dashboard-card">
+            <h3>Premium Due</h3>
+            <p>₹5,500</p>
+        </div>
+
+        <div class="dashboard-card">
+            <h3>Claims</h3>
+            <p>1</p>
+        </div>
+
+        <div class="dashboard-card">
+            <h3>Renewals</h3>
+            <p>2</p>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- POLICY DETAILS -->
+
+<section class="section">
+
+    <h2>My Policies</h2>
+
+    <div class="table-container">
+
+        <table>
+
+            <tr>
+                <th>Policy ID</th>
+                <th>Policy Type</th>
+                <th>Premium</th>
+                <th>Due Date</th>
+                <th>Status</th>
+            </tr>
+
+            <tr>
+                <td>INS1001</td>
+                <td>Health Insurance</td>
+                <td>₹2,500</td>
+                <td>15/09/2026</td>
+                <td>Active</td>
+            </tr>
+
+            <tr>
+                <td>INS1002</td>
+                <td>Auto Insurance</td>
+                <td>₹1,800</td>
+                <td>25/09/2026</td>
+                <td>Active</td>
+            </tr>
+
+            <tr>
+                <td>INS1003</td>
+                <td>Home Insurance</td>
+                <td>₹1,200</td>
+                <td>05/10/2026</td>
+                <td>Active</td>
+            </tr>
+
+        </table>
+
+    </div>
+
+</section>
+
+
+<!-- SMS ALERT -->
+
+<section class="section">
+
+    <h2>Policy Alerts</h2>
+
+    <div class="alert-box">
+
+        🔔 <strong>Payment Reminder:</strong>
+
+        Your insurance premium payment of
+        ₹2,500 is due on 15/09/2026.
+
+        Please make the payment before the due date.
+
+    </div>
+
+</section>
+
+
+<!-- COMPARE POLICIES -->
+
+<section class="section">
+
+    <h2>Compare Policies</h2>
+
+    <div class="form-container">
+
+        <label>Select First Policy</label>
+
+        <select id="policy1">
+
+            <option>Health Insurance</option>
+            <option>Auto Insurance</option>
+            <option>Home Insurance</option>
+
+        </select>
+
+
+        <label>Select Second Policy</label>
+
+        <select id="policy2">
+
+            <option>Auto Insurance</option>
+            <option>Health Insurance</option>
+            <option>Home Insurance</option>
+
+        </select>
+
+
+        <button class="btn"
+                onclick="comparePolicies()">
+            Compare
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- CLAIM -->
+
+<section class="section">
+
+    <h2>File an Insurance Claim</h2>
+
+    <div class="form-container">
+
+        <input
+            type="text"
+            id="claimPolicy"
+            placeholder="Policy ID"
+        >
+
+        <textarea
+            id="claimDescription"
+            placeholder="Describe your claim">
+        </textarea>
+
+        <button class="btn"
+                onclick="fileClaim()">
+            Submit Claim
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- LOGIN MODAL -->
+
+<div class="modal" id="loginModal">
+
+    <div class="modal-content">
+
+        <span class="close"
+              onclick="closeLogin()">×</span>
+
+        <h2>Login</h2>
+
+        <input
+            type="email"
+            id="email"
+            placeholder="Email Address"
+        >
+
+        <input
+            type="password"
+            id="password"
+            placeholder="Password"
+        >
+
+        <select id="role">
+
+            <option value="user">User</option>
+            <option value="agent">Agent</option>
+            <option value="admin">Admin</option>
+
+        </select>
+
+        <button class="btn"
+                onclick="login()">
+            Login
+        </button>
+
+        <p style="text-align:center;margin-top:15px;">
+            New Agent?
+            <b onclick="agentRegister()"
+               style="color:#1976d2;cursor:pointer;">
+                Register
+            </b>
+        </p>
+
+    </div>
+
+</div>
+
+
+<!-- FOOTER -->
+
+<footer>
+
+    <h3>InsureEasy</h3>
+
+    <p>
+        Simple, secure and convenient insurance management.
+    </p>
+
+    <br>
+
+    <p>
+        © 2026 InsureEasy. All Rights Reserved.
+    </p>
+
+</footer>
+
+
+<script>
+
+/* LOGIN */
+
+function openLogin() {
+
+    document.getElementById("loginModal")
+        .style.display = "block";
+
+}
+
+
+function closeLogin() {
+
+    document.getElementById("loginModal")
+        .style.display = "none";
+
+}
+
+
+function login() {
+
+    let email =
+        document.getElementById("email").value;
+
+    let password =
+        document.getElementById("password").value;
+
+    let role =
+        document.getElementById("role").value;
+
+
+    if(email === "" || password === "") {
+
+        alert("Please enter email and password.");
+
+        return;
+    }
+
+
+    if(role === "admin") {
+
+        alert(
+            "Admin Login Successful!\n\n" +
+            "Admin can approve agents and view agent details."
+        );
+
+    }
+
+    else if(role === "agent") {
+
+        alert(
+            "Agent Login Successful!\n\n" +
+            "Agent can create customers, manage policies and send SMS alerts."
+        );
+
+    }
+
+    else {
+
+        alert(
+            "User Login Successful!\n\n" +
+            "User can manage policies and receive alerts."
+        );
+
+    }
+
+    closeLogin();
+
+}
+
+
+/* POLICY */
+
+function viewPolicy(policy) {
+
+    alert(
+        policy +
+        "\n\n" +
+        "Policy Details:\n" +
+        "✓ Flexible premium plans\n" +
+        "✓ Easy online application\n" +
+        "✓ Secure payment\n" +
+        "✓ Policy management\n" +
+        "✓ Claim support"
+    );
+
+}
+
+
+/* COMPARE */
+
+function comparePolicies() {
+
+    let policy1 =
+        document.getElementById("policy1").value;
+
+    let policy2 =
+        document.getElementById("policy2").value;
+
+
+    alert(
+        "Policy Comparison\n\n" +
+        policy1 +
+        " VS " +
+        policy2 +
+        "\n\n" +
+        "Compare coverage, premium, benefits and policy terms."
+    );
+
+}
+
+
+/* CLAIM */
+
+function fileClaim() {
+
+    let policy =
+        document.getElementById("claimPolicy").value;
+
+    let description =
+        document.getElementById("claimDescription").value;
+
+
+    if(policy === "" || description === "") {
+
+        alert("Please enter all claim details.");
+
+        return;
+    }
+
+
+    alert(
+        "Claim submitted successfully!\n" +
+        "Policy ID: " + policy
+    );
+
+}
+
+
+/* AGENT REGISTRATION */
+
+function agentRegister() {
+
+    alert(
+        "Agent Registration\n\n" +
+        "Registration form will be opened here."
+    );
+
+}
+
+</script>
+
+</body>
+</html>
