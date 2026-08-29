@@ -1,0 +1,13 @@
+<%@ Language="VBScript" %>
+
+<html>
+<body>
+
+<h2>Today's Date</h2>
+
+<%
+Response.Write(Date())
+%>
+
+</body>
+</html>
