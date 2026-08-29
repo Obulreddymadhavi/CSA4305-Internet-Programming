@@ -1,0 +1,21 @@
+<html>
+<head>
+    <title>Image Roll Over Effect</title>
+    <style>
+        img{
+            width:300px;
+            height:200px;
+            border:3px solid black;
+        }
+    </style>
+</head>
+<body align="center">
+
+<h2>Image Roll Over Effect</h2>
+
+<img src="image1.jpg"
+     onmouseover="this.src='image2.jpg'"
+     onmouseout="this.src='image1.jpg'">
+
+</body>
+</html>
