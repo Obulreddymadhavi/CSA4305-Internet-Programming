@@ -1,0 +1,46 @@
+<html>
+<body>
+
+<h2 align="center">VIP Tour Plan</h2>
+
+<table border="1" cellpadding="10">
+
+<tr>
+<th>Date</th>
+<th>Place</th>
+<th>Time</th>
+<th>Program</th>
+</tr>
+
+<tr>
+<td>01/09/2026</td>
+<td>Chennai</td>
+<td>10:00 AM</td>
+<td>Inauguration Ceremony</td>
+</tr>
+
+<tr>
+<td>02/09/2026</td>
+<td>Vellore</td>
+<td>11:30 AM</td>
+<td>College Visit</td>
+</tr>
+
+<tr>
+<td>03/09/2026</td>
+<td>Bengaluru</td>
+<td>2:00 PM</td>
+<td>Technology Summit</td>
+</tr>
+
+<tr>
+<td>04/09/2026</td>
+<td>Hyderabad</td>
+<td>4:00 PM</td>
+<td>Press Meeting</td>
+</tr>
+
+</table>
+
+</body>
+</html>
