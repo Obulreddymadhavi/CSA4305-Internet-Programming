@@ -1,0 +1,44 @@
+<%@ page import="java.sql.*" %>
+
+<html>
+<body>
+
+<h2>Student Mark List</h2>
+
+<table border="1">
+
+<tr>
+<th>ID</th>
+<th>Name</th>
+<th>Mark</th>
+</tr>
+
+<%
+Class.forName("com.mysql.cj.jdbc.Driver");
+
+Connection con = DriverManager.getConnection(
+"jdbc:mysql://localhost:3306/college",
+"root","root");
+
+Statement st = con.createStatement();
+
+ResultSet rs = st.executeQuery("select * from student");
+
+while(rs.next()){
+%>
+
+<tr>
+<td><%=rs.getInt(1)%></td>
+<td><%=rs.getString(2)%></td>
+<td><%=rs.getInt(3)%></td>
+</tr>
+
+<%
+}
+con.close();
+%>
+
+</table>
+
+</body>
+</html>
