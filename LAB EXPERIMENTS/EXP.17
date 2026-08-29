@@ -1,0 +1,44 @@
+<%@ page import="java.sql.*"%>
+
+<html>
+<body>
+
+<h2>Library Book Details</h2>
+
+<table border="1">
+
+<tr>
+<th>Book ID</th>
+<th>Book Name</th>
+<th>Author</th>
+</tr>
+
+<%
+Class.forName("com.mysql.cj.jdbc.Driver");
+
+Connection con = DriverManager.getConnection(
+"jdbc:mysql://localhost:3306/library",
+"root","root");
+
+Statement st = con.createStatement();
+
+ResultSet rs = st.executeQuery("select * from books");
+
+while(rs.next()){
+%>
+
+<tr>
+<td><%=rs.getInt("bookid")%></td>
+<td><%=rs.getString("bookname")%></td>
+<td><%=rs.getString("author")%></td>
+</tr>
+
+<%
+}
+con.close();
+%>
+
+</table>
+
+</body>
+</html>
