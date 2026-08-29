@@ -1,0 +1,22 @@
+<html>
+<body>
+
+<h2>Student Registration Form</h2>
+
+<form method="post" action="register.asp">
+
+Name :
+<input type="text" name="name"><br><br>
+
+Email :
+<input type="email" name="email"><br><br>
+
+Phone :
+<input type="text" name="phone"><br><br>
+
+<input type="submit" value="Register">
+
+</form>
+
+</body>
+</html>
